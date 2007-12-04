@@ -1,4 +1,4 @@
-use Find::Lib 'x', 'x/y', 'x/../lib';
+use Find::Lib paths => [ 'x', 'x/y', 'x/../lib'];
 
 use Foo;
 use Bar;
