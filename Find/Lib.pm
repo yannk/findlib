@@ -10,6 +10,8 @@ sub import {
     return unless @_;
     my %param;
     if ($_[0] ne 'paths' and $_[0] ne 'pkgs') {
+        ## enters simple bootstrap mode:
+        ## 'libpath' => 'bootstrap package' => @arguments
         $param{paths} = [ $_[0] ];
         if ($_[1]) {
             $param{pkgs}  = { $_[1] => [ splice @_, 2 ] }
