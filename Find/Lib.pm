@@ -1,6 +1,7 @@
 package Find::Lib;
 use strict;
 use warnings;
+use lib;
 
 use File::Spec::Functions qw( catpath splitpath rel2abs catdir );
 sub import {
@@ -8,18 +9,12 @@ sub import {
     return unless @_;
     my %param = @_;
     my $script = catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
-    my $use_libs = '';
-    for (@{ $param{paths} }) {
-        my $libdir = catdir($script, $_);
-        $use_libs .= "use lib '$libdir';";
-    }
-    unless ($use_libs)  {
-        warn "no library used";
-    }
-    if ($use_libs) {
-        for (@{ $param
-        eval $use_libs;
-        warn $@ if $@;
+
+    lib->import( catdir($script, $_) ) for @{ $param{paths} || [] };
+
+    while (my ($pkg, $args) = each %{ $param{pkgs} || {} }) { 
+        eval "require $pkg";
+        $pkg->import( @{ $args || [] } );
     }
 }
 

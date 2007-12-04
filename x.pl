@@ -1,4 +1,5 @@
-use Find::Lib paths => [ 'x', 'x/y', 'x/../lib'];
+use Find::Lib paths => [ 'x', 'x/y', 'x/../lib' ], 
+              pkgs  => { 'Boot' => [ test => 1 ] }; 
 
 use Foo;
 use Bar;
