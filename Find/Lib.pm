@@ -8,7 +8,7 @@ sub import {
     my $class = shift;
     return unless @_;
     my %param;
-    if ($_[0] ne 'paths' or $_[0] ne 'pkgs') {
+    if ($_[0] ne 'paths' and $_[0] ne 'pkgs') {
         $param{paths} = [ $_[0] ];
         if ($_[1]) {
             $param{pkgs}  = { $_[1] => [ splice @_, 2 ] }
