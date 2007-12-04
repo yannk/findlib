@@ -2,7 +2,7 @@ use Find::Lib paths => [ 'x', 'x/y', 'x/../lib' ],
               pkgs  => { 'Boot' => [ test => 1 ] }; 
 
 =cut
-My onliner is achived but is ugly now:
+My onliner goal is achieved but is ugly now:
 
 use Find::Lib paths => [ "../core/lib "], pkgs => { "TypeCore::Bootstrap" => [ test => 1 ] }
 

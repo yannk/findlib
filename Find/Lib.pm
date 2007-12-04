@@ -4,6 +4,7 @@ use warnings;
 use lib;
 
 use File::Spec::Functions qw( catpath splitpath rel2abs catdir );
+
 sub import {
     my $class = shift;
     return unless @_;
@@ -17,7 +18,6 @@ sub import {
     else {
         %param = @_;
     }
-    use YAML; warn Dump \%param;
     my $script = catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
 
     lib->import( catdir($script, $_) ) for @{ $param{paths} || [] };
