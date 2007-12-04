@@ -20,7 +20,10 @@ sub import {
     }
     my $script = catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
 
-    lib->import( catdir($script, $_) ) for @{ $param{paths} || [] };
+    for ( @{ $param{paths} || [] } ) {
+        next unless -d $_;
+        lib->import( catdir($script, $_) );
+    }
 
     while (my ($pkg, $args) = each %{ $param{pkgs} || {} }) { 
         eval "require $pkg";

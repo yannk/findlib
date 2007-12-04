@@ -1,4 +1,4 @@
-use Find::Lib paths => [ 'x', 'x/y', 'x/../lib' ], 
+use Find::Lib paths => [ 'x', 'x/y', 'x/../lib', 'unexistent' ], 
               pkgs  => { 'Boot' => [ test => 1 ] }; 
 
 =cut
@@ -13,4 +13,8 @@ use Find::Lib '../core/lib' => 'TypeCore::Bootstrap', tests => 1;
 use Foo;
 use Bar;
 use Baz;
+my ($unexistent) = grep { /unexistent/ } @INC;
+print STDERR $unexistent ? "not ok\n" : "ok\n";
+
+#use YAML; warn Dump \@INC;
 warn "done";
