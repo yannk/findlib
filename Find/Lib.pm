@@ -110,7 +110,7 @@ sub import {
     my $script = catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
 
     for ( @{ $param{paths} || [] } ) {
-#        next unless -d $_;
+        next unless -d $_;
         lib->import( catdir($script, $_) );
     }
 
