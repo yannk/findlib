@@ -57,7 +57,7 @@ add them to your C<@INC>; just use the expanded version of the SYNOPSIS.
 
 =head2 Installation and availability of this module
 
-The utility of this module is seriously reduced if L<Find::Lib> is not already in
+The usefulness of this module is seriously reduced if L<Find::Lib> is not already in
 your @INC / $ENV{PERL5LIB} -- Chicken and egg problem. This is the big disavantage of 
 L<Find::Lib> over L<FindBin> so you need to be sure of global availability of the module
 in the system (installed thru your favorite package managment system for intance).
