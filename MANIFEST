@@ -10,7 +10,6 @@ t/02-use.t
 t/03-missinginc.t
 t/04-import.t
 t/05-complex.t
-t/findbin.pl
 t/moretests/01-relative.t
 t/moretests/02-dollar0-begin.t
 t/moretests/02-dollar0.t
