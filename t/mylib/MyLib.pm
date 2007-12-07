@@ -1,6 +1,6 @@
 package MyLib;
 
-require 'common.pl';
+use Test::More;
 
 our %imported = ();
 
@@ -9,6 +9,6 @@ sub import {
     %imported = @_;
 }
 
-loaded( __PACKAGE__ );
+ok 1, __PACKAGE__ . " loaded";
 
 1;

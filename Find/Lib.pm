@@ -62,10 +62,19 @@ your @INC / $ENV{PERL5LIB} -- Chicken and egg problem. This is the big disavanta
 L<Find::Lib> over L<FindBin> so you need to be sure of global availability of the module
 in the system (installed thru your favorite package managment system for intance).
 
-=head2 BEGIN{ } vs import()
+=head2 modification of $0 and chdir (BEGIN blocks, other 'use')
 
-On the contrary of L<FindBin>, L<Find::Lib> uses an import() to do its job, so you
-need to be aware of $0 modifiations XXX
+As soon as L<Find::Lib> is compiled it saves the location of the script and the initial
+cwd (current working directory), which are the two pieces of information the module
+relies on to interpret the relative path given by the calling program.
+
+If cwd or $0 is changed before Find::Lib has a change to do its job, then Find::Lib
+will most probably die, saying "The script cannot be found". I don't know a workaround 
+that. So be sure to load Find::Lib as soon as possible in your script
+to minimize problems (you are in control!).
+
+(some programs alter $0 to customize the diplay line of the process in the system 
+process-list (C<ps> on unix).
 
 =head1 USAGE
 
@@ -95,7 +104,7 @@ or C<pkgs>. An example of usage is given in the SYNOPSIS section.
 use Carp();
 use vars '$Script';
 
-BEGIN { $Script = $0 }
+$Script = catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
 
 sub import {
     my $class = shift;
@@ -112,11 +121,10 @@ sub import {
     else {
         %param = @_;
     }
-    my $script = catpath( (splitpath( rel2abs $Script ))[ 0, 1 ], '' );
-    Carp::croak("The script cannot be found") unless -e $script;
+    Carp::croak("The script cannot be found") unless -e $Script;
 
     for ( reverse @{ $param{paths} || [] } ) {
-        my $dir = catdir($script, $_);
+        my $dir = catdir($Script, $_);
         next unless -d $dir;
         lib->import( $dir );
     }
