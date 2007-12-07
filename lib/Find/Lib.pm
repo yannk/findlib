@@ -51,7 +51,7 @@ nice and clean.
 
 On the otherhand, if you don't want/need/have a Bootstrap module, you can still use
 L<Find::Lib> to automatically identify the relative locations of your libraries and
-add them to your C<@INC>; just use the expanded version of the SYNOPSIS.
+add them to your C<@INC>; just use the expanded version as seen in the SYNOPSIS.
 
 =head1 DISCUSSION
 
@@ -59,8 +59,9 @@ add them to your C<@INC>; just use the expanded version of the SYNOPSIS.
 
 The usefulness of this module is seriously reduced if L<Find::Lib> is not already in
 your @INC / $ENV{PERL5LIB} -- Chicken and egg problem. This is the big disavantage of 
-L<Find::Lib> over L<FindBin> so you need to be sure of global availability of the module
-in the system (installed thru your favorite package managment system for intance).
+L<FindBin> over L<Find::Lib>: FindBin is distributed with Perl. To mitigate that, you
+need to be sure of global availability of the module in the system (You could install
+it via your favorite package managment system for intance).
 
 =head2 modification of $0 and chdir (BEGIN blocks, other 'use')
 
@@ -70,11 +71,13 @@ relies on to interpret the relative path given by the calling program.
 
 If cwd or $0 is changed before Find::Lib has a change to do its job, then Find::Lib
 will most probably die, saying "The script cannot be found". I don't know a workaround 
-that. So be sure to load Find::Lib as soon as possible in your script
-to minimize problems (you are in control!).
+that. So be sure to load Find::Lib as soon as possible in your script to minimize 
+problems (you are in control!).
 
 (some programs alter $0 to customize the diplay line of the process in the system 
 process-list (C<ps> on unix).
+
+(Note, see L<perlvar> for explanation of $0)
 
 =head1 USAGE
 
