@@ -29,9 +29,9 @@ our $VERSION = '0.01';
     use base Find::Lib '../mylib' => 'My::Bootstrap', test => 1, dbi => 'sqlite';
 
     ## If you like verbose or if you don't have a Bootstrap module
-    use Find::Lib paths => [ 'lib', '../lib', 'devlib' ], 
-                  pkgs  => { 'Test::More' => [ tests => 10 ], 
-                             'My::Module' => [ ],
+    use Find::Lib libs => [ 'lib', '../lib', 'devlib' ], 
+                  pkgs => { 'Test::More' => [ tests => 10 ], 
+                            'My::Module' => [ ],
                   }; 
 
 =head1 DESCRIPTION
@@ -94,7 +94,7 @@ Recognized arguments are:
 
 =over 4
 
-=item C<paths>, a reference to a list of path to add to C<@INC>. The paths given
+=item C<libs>, a reference to a list of path to add to C<@INC>. The paths given
 are (should) be relative to the location of the current script. The paths won't be
 added unless the path actually exists on disk
 
@@ -103,7 +103,7 @@ of arguments (to import) as values.
 
 =back
 
-The short forms implies that the first argument passed to import is not C<paths>
+The short forms implies that the first argument passed to import is not C<libs>
 or C<pkgs>. An example of usage is given in the SYNOPSIS section.
 
 =cut
@@ -117,10 +117,10 @@ sub import {
     my $class = shift;
     return unless @_;
     my %param;
-    if ($_[0] ne 'paths' and $_[0] ne 'pkgs') {
+    if ($_[0] ne 'libs' and $_[0] ne 'pkgs') {
         ## enters simple bootstrap mode:
         ## 'libpath' => 'bootstrap package' => @arguments
-        $param{paths} = [ $_[0] ];
+        $param{libs} = [ $_[0] ];
         if ($_[1]) {
             $param{pkgs}  = { $_[1] => [ splice @_, 2 ] }
         }
@@ -130,7 +130,7 @@ sub import {
     }
     Carp::croak("The script cannot be found") unless -e $Script;
 
-    for ( reverse @{ $param{paths} || [] } ) {
+    for ( reverse @{ $param{libs} || [] } ) {
         my $dir = catdir($Script, $_);
         next unless -d $dir;
         lib->import( $dir );
