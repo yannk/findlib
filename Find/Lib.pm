@@ -92,6 +92,11 @@ or C<pkgs>. An example of usage is given in the SYNOPSIS section.
 
 =cut
 
+use Carp();
+use vars '$Script';
+
+BEGIN { $Script = $0 }
+
 sub import {
     my $class = shift;
     return unless @_;
@@ -107,7 +112,8 @@ sub import {
     else {
         %param = @_;
     }
-    my $script = catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
+    my $script = catpath( (splitpath( rel2abs $Script ))[ 0, 1 ], '' );
+    Carp::croak("The script cannot be found") unless -e $script;
 
     for ( reverse @{ $param{paths} || [] } ) {
         my $dir = catdir($script, $_);
