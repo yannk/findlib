@@ -13,11 +13,15 @@ Find::Lib - Helper to find and 'use lib' in the filesystem
 
 Version 0.01
 
+=cut
+
+our $VERSION = '0.01';
+
 =head1 SYNOPSIS
 
     #!/usr/bin/perl -w;
     use strict;
-    
+
     ## simple usage
     use base Find::Lib '../mylib' => 'My::BootStrap';
 
@@ -161,37 +165,37 @@ your bug as I make changes.
 =head1 ACKNOWLEDGEMENT
 
 Six Apart hackers nourrished the discussion that led to this module creation.
- 
+
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
-    
+
     perldoc Find::Lib
-    
+
 You can also look for information at:
-        
-=over 4 
+
+=over 4
 
 =item * AnnoCPAN: Annotated CPAN documentation
-        
+
 L<http://annocpan.org/dist/Find-Lib>
-        
+
 =item * CPAN Ratings
-        
+
 L<http://cpanratings.perl.org/d/Find-Lib>
-        
+
 =item * RT: CPAN's request tracker
 
 L<http://rt.cpan.org/NoAuth/Bugs.html?Find-Lib>
-        
+
 =item * Search CPAN
-    
+
 L<http://search.cpan.org/dist/Find-Lib>
-        
-=back   
-        
+
+=back
+
 =head1 COPYRIGHT & LICENSE
-    
+
 Copyright 2007 Yann Kerherve, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it

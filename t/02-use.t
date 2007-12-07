@@ -1,7 +1,7 @@
 use strict;
 use Test::More tests => 3;
 
-require 'testutils.pl';
+require 't/testutils.pl';
 
 use Find::Lib 'mylib', 'MyLib';
 

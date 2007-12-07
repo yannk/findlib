@@ -12,6 +12,7 @@ WriteMakefile(
         'Test::More' => 0,
         'File::Spec' => 0,
     },
+    test                => { TESTS => 't/*.t t/moretests/*t' },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Find-Lib-*' },
 );

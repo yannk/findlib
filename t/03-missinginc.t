@@ -1,7 +1,7 @@
 use strict;
 use Test::More tests => 1;
 
-require 'testutils.pl';
+require 't/testutils.pl';
 
 use Find::Lib 'unexistent';
 not_in_inc( 'unexistent' );
