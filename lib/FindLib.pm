@@ -1,4 +1,4 @@
-package Find::Lib;
+package FindLib;
 use strict;
 use warnings;
 use lib;
@@ -7,7 +7,7 @@ use File::Spec::Functions qw( catpath splitpath rel2abs catdir );
 
 =head1 NAME
 
-Find::Lib - Helper to find and 'use lib' in the filesystem
+FindLib - Helper to find and 'use lib' in the filesystem
 
 =head1 VERSION
 
@@ -23,13 +23,13 @@ our $VERSION = '0.01';
     use strict;
 
     ## simple usage
-    use base Find::Lib '../mylib' => 'My::BootStrap';
+    use base FindLib '../mylib' => 'My::BootStrap';
 
     ## pass import parameters to your Bootstrap module
-    use base Find::Lib '../mylib' => 'My::Bootstrap', test => 1, dbi => 'sqlite';
+    use base FindLib '../mylib' => 'My::Bootstrap', test => 1, dbi => 'sqlite';
 
     ## If you like verbose or if you don't have a Bootstrap module
-    use Find::Lib libs => [ 'lib', '../lib', 'devlib' ], 
+    use FindLib libs => [ 'lib', '../lib', 'devlib' ], 
                   pkgs => { 'Test::More' => [ tests => 10 ], 
                             'My::Module' => [ ],
                   }; 
@@ -45,7 +45,7 @@ The purpose of this module is to replace
 with something shorter. This is specially useful if your project has a lot of scripts
 (For instance tests scripts).
 
-    use base Find::Lib '../bootstrap/lib' => 'My::Bootstrap', %param;
+    use base FindLib '../bootstrap/lib' => 'My::Bootstrap', %param;
 
 does exactly that without using L<FindBin> module.
 
@@ -54,28 +54,28 @@ C<@INC> and to use more modules necessary to your application. It keeps your scr
 nice and clean. 
 
 On the otherhand, if you don't want/need/have a Bootstrap module, you can still use
-L<Find::Lib> to automatically identify the relative locations of your libraries and
+L<FindLib> to automatically identify the relative locations of your libraries and
 add them to your C<@INC>; just use the expanded version as seen in the SYNOPSIS.
 
 =head1 DISCUSSION
 
 =head2 Installation and availability of this module
 
-The usefulness of this module is seriously reduced if L<Find::Lib> is not already in
+The usefulness of this module is seriously reduced if L<FindLib> is not already in
 your @INC / $ENV{PERL5LIB} -- Chicken and egg problem. This is the big disavantage of 
-L<FindBin> over L<Find::Lib>: FindBin is distributed with Perl. To mitigate that, you
+L<FindBin> over L<FindLib>: FindBin is distributed with Perl. To mitigate that, you
 need to be sure of global availability of the module in the system (You could install
 it via your favorite package managment system for intance).
 
 =head2 modification of $0 and chdir (BEGIN blocks, other 'use')
 
-As soon as L<Find::Lib> is compiled it saves the location of the script and the initial
+As soon as L<FindLib> is compiled it saves the location of the script and the initial
 cwd (current working directory), which are the two pieces of information the module
 relies on to interpret the relative path given by the calling program.
 
-If cwd or $0 is changed before Find::Lib has a change to do its job, then Find::Lib
+If cwd or $0 is changed before FindLib has a change to do its job, then FindLib
 will most probably die, saying "The script cannot be found". I don't know a workaround 
-that. So be sure to load Find::Lib as soon as possible in your script to minimize 
+that. So be sure to load FindLib as soon as possible in your script to minimize 
 problems (you are in control!).
 
 (some programs alter $0 to customize the diplay line of the process in the system 
@@ -87,7 +87,7 @@ process-list (C<ps> on unix).
 
 =head2 import
 
-All the work is done in import. So you need to 'use Find::Lib' and pass arguments
+All the work is done in import. So you need to 'use FindLib' and pass arguments
 to it.
 
 Recognized arguments are:
@@ -158,7 +158,7 @@ Yann Kerherve, C<< <yann.kerherve at gmail.com> >>
 
 Please report any bugs or feature requests to
 C<bug-find-lib at rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Find-Lib>.
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=FindLib>.
 I will be notified, and then you'll automatically be notified of progress on
 your bug as I make changes.
 
@@ -173,7 +173,7 @@ module, usage or code.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc Find::Lib
+    perldoc FindLib
 
 You can also look for information at:
 
@@ -181,19 +181,19 @@ You can also look for information at:
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/Find-Lib>
+L<http://annocpan.org/dist/FindLib>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/Find-Lib>
+L<http://cpanratings.perl.org/d/FindLib>
 
 =item * RT: CPAN's request tracker
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Find-Lib>
+L<http://rt.cpan.org/NoAuth/Bugs.html?FindLib>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/Find-Lib>
+L<http://search.cpan.org/dist/FindLib>
 
 =back
 

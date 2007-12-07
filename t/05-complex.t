@@ -3,7 +3,7 @@ use Test::More tests => 3;
 
 require 't/testutils.pl';
 
-use Find::Lib libs => [ '../unexistent', 'mylib' ],
+use FindLib libs => [ '../unexistent', 'mylib' ],
               pkgs => { MyLib => [ a => 1, b => 42+42 ],
                         'Test::More' => [],
                       };

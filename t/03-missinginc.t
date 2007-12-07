@@ -3,5 +3,5 @@ use Test::More tests => 1;
 
 require 't/testutils.pl';
 
-use Find::Lib 'unexistent';
+use FindLib 'unexistent';
 not_in_inc( 'unexistent' );
