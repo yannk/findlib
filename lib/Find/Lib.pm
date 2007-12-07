@@ -166,7 +166,10 @@ your bug as I make changes.
 
 Six Apart hackers nourrished the discussion that led to this module creation.
 
-=head1 SUPPORT
+=head1 SUPPORT & CRITICS
+
+I welcome feedback about this module, don't hesitate to contact me regarding this
+module, usage or code.
 
 You can find documentation for this module with the perldoc command.
 
