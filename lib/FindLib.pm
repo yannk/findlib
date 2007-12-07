@@ -7,7 +7,7 @@ use File::Spec::Functions qw( catpath splitpath rel2abs catdir );
 
 =head1 NAME
 
-FindLib - Helper to find and 'use lib' in the filesystem
+FindLib - Helper to find libs to use in the filesystem tree
 
 =head1 VERSION
 
