@@ -4,6 +4,7 @@ use warnings;
 use lib;
 
 use File::Spec::Functions qw( catpath splitpath rel2abs catdir );
+use vars qw/$Script $VERSION/;
 
 =head1 NAME
 
@@ -15,7 +16,7 @@ Version 0.01
 
 =cut
 
-our $VERSION = '0.01';
+$VERSION = '0.01';
 
 =head1 SYNOPSIS
 
@@ -109,7 +110,6 @@ or C<pkgs>. An example of usage is given in the SYNOPSIS section.
 =cut
 
 use Carp();
-use vars '$Script';
 
 $Script = catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
 
