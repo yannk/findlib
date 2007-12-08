@@ -1,7 +1,7 @@
 use strict;
 use Test::More tests => 3;
 
-use FindLib libs => [ '../mylib', 'mytestlib' ],
+use Find::Lib libs => [ '../mylib', 'mytestlib' ],
               pkgs => { MyLib => [ a => 1, b => 42+42 ],
                         'Test::More' => [],
                       };

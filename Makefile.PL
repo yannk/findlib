@@ -3,10 +3,10 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-    NAME                => 'FindLib',
+    NAME                => 'Find::Lib',
     AUTHOR              => 'Yann Kerherve <yannk@cpan.org>',
-    VERSION_FROM        => 'lib/FindLib.pm',
-    ABSTRACT_FROM       => 'lib/FindLib.pm',
+    VERSION_FROM        => 'lib/Find/Lib.pm',
+    ABSTRACT_FROM       => 'lib/Find/Lib.pm',
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
@@ -14,5 +14,5 @@ WriteMakefile(
     },
     test                => { TESTS => 't/*.t t/moretests/*t' },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'FindLib-*' },
+    clean               => { FILES => 'Find-Lib-*' },
 );

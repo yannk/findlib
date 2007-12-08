@@ -1,5 +1,5 @@
 Changes
-lib/FindLib.pm
+lib/Find/Lib.pm
 Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
@@ -19,4 +19,3 @@ t/moretests/03-chdir.t
 t/moretests/mytestlib/MyLib.pm
 t/mylib/MyLib.pm
 t/testutils.pl
-META.yml                                 Module meta-data (added by MakeMaker)

@@ -3,9 +3,9 @@ use Test::More tests => 1;
 
 BEGIN { chdir '/tmp' };
 
-use FindLib;
+use Find::Lib;
 
 eval { 
-    FindLib->import('../mylib', 'MyLib', a => 1, b => 42);
+    Find::Lib->import('../mylib', 'MyLib', a => 1, b => 42);
 };
-ok $@, "we died, because chdir occured before FindLib... we're lost";
+ok $@, "we died, because chdir occured before Find::Lib... we're lost";

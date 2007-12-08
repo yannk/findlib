@@ -1,4 +1,4 @@
 use strict;
 use Test::More tests => 1;
 
-use_ok 'FindLib';
+use_ok 'Find::Lib';
