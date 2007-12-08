@@ -2,7 +2,7 @@ Revision history for Find-Lib
 
 0.02    Sat Dec  8 11:16:09 PDT 2007
         - POD fixes
-        - Changed tests suite to make it compatible with perl 5.0005
+        - Changed tests suite to make it compatible with perl 5.005
           (hopefully)
 0.01    Fri Dec  7 19:30:31 PDT 2007
         First version, released on an unsuspecting world.

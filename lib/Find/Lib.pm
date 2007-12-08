@@ -119,7 +119,7 @@ sub import {
     my %param;
 
     if ( ( $_[0] eq 'libs' or $_[0] eq 'pkgs' )
-        and ref $_[1] ne 'SCALAR' ) {
+        and ref $_[1] && ref $_[1] ne 'SCALAR' ) {
 
         %param = @_;
     }
