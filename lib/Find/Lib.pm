@@ -16,7 +16,7 @@ Version 0.01
 
 =cut
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -117,16 +117,19 @@ sub import {
     my $class = shift;
     return unless @_;
     my %param;
-    if ($_[0] ne 'libs' and $_[0] ne 'pkgs') {
+
+    if ( ( $_[0] eq 'libs' or $_[0] eq 'pkgs' )
+        and ref $_[1] ne 'SCALAR' ) {
+
+        %param = @_;
+    }
+    else {
         ## enters simple bootstrap mode:
         ## 'libpath' => 'bootstrap package' => @arguments
         $param{libs} = [ $_[0] ];
-        if ($_[1]) {
-            $param{pkgs}  = { $_[1] => [ splice @_, 2 ] }
+        if ( $_[1] ) {
+            $param{pkgs} = { $_[1] => [ splice @_, 2 ] };
         }
-    }
-    else {
-        %param = @_;
     }
     Carp::croak("The script cannot be found") unless -e $Script;
 

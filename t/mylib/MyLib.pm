@@ -2,7 +2,7 @@ package MyLib;
 
 use Test::More;
 
-our %imported = ();
+use vars '%imported';
 
 sub import {
     my $class = shift;
