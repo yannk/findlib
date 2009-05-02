@@ -8,4 +8,4 @@ use Find::Lib '../mylib', 'MyLib', a => 1, b => 42;
 ok $MyLib::imported{'a'};
 is $MyLib::imported{'b'}, 42;
 
-BEGIN { warn "x"; chdir '/tmp' };
+BEGIN { chdir '/tmp' };
