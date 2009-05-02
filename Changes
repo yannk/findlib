@@ -1,5 +1,10 @@
 Revision history for Find-Lib
 
+0.03
+        - Uses $ENV{PWD} to allow more DWIM, compared to the previous method
+          that used resolved paths all over the place.
+          Idea conception with Jonathan Steinert (hachi)
+
 0.02    Sat Dec  8 11:16:09 PDT 2007
         - POD fixes
         - Changed tests suite to make it compatible with perl 5.005

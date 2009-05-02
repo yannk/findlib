@@ -20,7 +20,7 @@ BEGIN {
         plan 'skip_all' => "symlink support is missing on this FS";
     }
 }
-plan tests => 3;
+plan tests => 1;
 
 END {
     chdir $PWD; ## restore original directory
@@ -42,7 +42,9 @@ copy $srcfile, $dstfile;
 ## this is where we do the real test;
 {
     ## Go into the symlinked directory
-    chdir $link;
+    chdir $link or die "coudn't chdir to $link";
+    ## damn chdir doesn't update PWD unless comming from non-core Cwd
+    local $ENV{PWD} = File::Spec->catdir( $ENV{PWD}, $link );
     ## execute from there, if all is ok, succeeds
     my $ret = system 'perl', $script;
     ok !$ret, "our script worked, meaning that compilation with symlink worked";
