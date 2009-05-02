@@ -9,7 +9,7 @@ use vars qw/$Script/; # compat
 
 =head1 NAME
 
-Find::Lib - Helper to find libs to use in the filesystem tree
+Find::Lib - Helper to smartly find libs to use in the filesystem tree
 
 =head1 VERSION
 
@@ -25,16 +25,18 @@ $VERSION = '0.03';
     use strict;
 
     ## simple usage
-    use Find::Lib '../mylib' => 'My::BootStrap';
+    use Find::Lib '../mylib';
+
+    ## with a Bootstap module
+    use Find::Lib '../mylib' => 'My::Bootstrap';
 
     ## pass import parameters to your Bootstrap module
     use Find::Lib '../mylib' => 'My::Bootstrap', test => 1, dbi => 'sqlite';
 
     ## If you like verbose or if you don't have a Bootstrap module
-    use Find::Lib libs => [ 'lib', '../lib', 'devlib' ], 
-                  pkgs => { 'My::Test'   => [ tests => 10 ], 
-                            'My::Module' => [ ],
-                  }; 
+    use Find::Lib libs => [ 'lib', '../lib', 'devlib' ];
+    use My::Test tests => 10;
+    use My::Module;
 
 =head1 DESCRIPTION
 
@@ -105,7 +107,9 @@ are (should) be relative to the location of the current script. The paths won't
 be added unless the path actually exists on disk
 
 =item C<pkgs>, a reference to a hash containing package name as keys and
-arrayref of arguments (to import) as values.
+arrayref of arguments (to import) as values. This is not really useful in
+itself, you'd better specify 'libs' in the import arguments and then use
+on seperate lines after it.
 
 =back
 
