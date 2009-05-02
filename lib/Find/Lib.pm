@@ -4,7 +4,8 @@ use warnings;
 use lib;
 
 use File::Spec::Functions qw( catpath splitpath rel2abs catdir );
-use vars qw/$Script $VERSION/;
+use vars qw/$Base $VERSION/;
+use vars qw/$Script/; # compat
 
 =head1 NAME
 
@@ -111,7 +112,11 @@ or C<pkgs>. An example of usage is given in the SYNOPSIS section.
 
 use Carp();
 
-$Script = catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
+$Script = $Base = guess_base();
+
+sub guess_base {
+    catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
+}
 
 sub import {
     my $class = shift;
@@ -131,10 +136,10 @@ sub import {
             $param{pkgs} = { $_[1] => [ splice @_, 2 ] };
         }
     }
-    Carp::croak("The script cannot be found") unless -e $Script;
+    Carp::croak("The script cannot be found") unless -e $Base;
 
     for ( reverse @{ $param{libs} || [] } ) {
-        my $dir = catdir($Script, $_);
+        my $dir = catdir($Base, $_);
         next unless -d $dir;
         lib->import( $dir );
     }
