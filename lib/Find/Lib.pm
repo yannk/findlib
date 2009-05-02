@@ -129,7 +129,7 @@ sub guess_shell_path {
     my ($volume, $path, $file) = splitpath( $ENV{PWD} );
     my @path = splitdir $path;
     pop @path unless $path[-1];
-    @base     = (@path, $file);
+    @base = (@path, $file);
     my @zero = splitdir $0;
     pop @zero; # get rid of the script
     @base = shell_resolve(\@base, \@zero);
