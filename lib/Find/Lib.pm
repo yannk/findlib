@@ -136,6 +136,8 @@ sub guess_shell_path {
     @base = (@path, $file);
     my @zero = splitdir $0;
     pop @zero; # get rid of the script
+    ## a clean base is also important for the pop business below
+    #@base = grep { $_ && $_ ne '.' } shell_resolve(\@base, \@zero);
     @base = shell_resolve(\@base, \@zero);
     return catpath( $volume, catdir @base );
 }
@@ -146,7 +148,11 @@ sub shell_resolve {
     while (@$right && $right->[0] eq '.') { shift @$right }
     while (@$right && $right->[0] eq '..') {
         shift @$right;
-        pop @$left;
+        ## chop off @left until we removed a significant path part
+        my $part;
+        while (@$left && !$part) {
+            $part = pop @$left;
+        }
     }
 
     return (@$left, @$right);
@@ -188,7 +194,7 @@ sub import {
         lib->import( $dir );
     }
 
-    while (my ($pkg, $args) = each %{ $param{pkgs} || {} }) { 
+    while (my ($pkg, $args) = each %{ $param{pkgs} || {} }) {
         eval "require $pkg";
         if ($@) {
             die $@;

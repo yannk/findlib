@@ -20,7 +20,7 @@ BEGIN {
         plan 'skip_all' => "symlink support is missing on this FS";
     }
 }
-plan tests => 1;
+plan tests => 2;
 
 END {
     chdir $PWD; ## restore original directory
@@ -48,4 +48,7 @@ copy $srcfile, $dstfile;
     ## execute from there, if all is ok, succeeds
     my $ret = system 'perl', $script;
     ok !$ret, "our script worked, meaning that compilation with symlink worked";
+
+    $ret = system 'perl', ".///$script";
+    ok !$ret, "crufty path doesn't make it blow up";
 }
