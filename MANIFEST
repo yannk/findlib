@@ -23,3 +23,8 @@ t/moretests/03-chdir.t
 t/moretests/mytestlib/MyLib.pm
 t/mylib/MyLib.pm
 t/testutils.pl
+t/moretests/symlink_test.pl
+t/08-dupe-slashes.t
+t/moretests/03-pwd-begin.t
+t/moretests/04-symlinks.t
+t/moretests/symlink_test.pl
