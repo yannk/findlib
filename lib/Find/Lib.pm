@@ -33,7 +33,7 @@ $VERSION = '0.03';
     ## pass import parameters to your Bootstrap module
     use Find::Lib '../mylib' => 'My::Bootstrap', test => 1, dbi => 'sqlite';
 
-    ## If you like verbose or if you don't have a Bootstrap module
+    ## If you like verbose, or if you don't have a Bootstrap module
     use Find::Lib libs => [ 'lib', '../lib', 'devlib' ];
     use My::Test tests => 10;
     use My::Module;
@@ -56,7 +56,7 @@ propriety to do what you mean regarding symlinks and '..'.
 
 Note that the role of a Bootstrap module is actually to install more
 library paths in C<@INC> and to use more modules necessary to your application.
-It keeps your scripts nice and clean. 
+It keeps your scripts nice and clean.
 
 On the other hand, if you don't want/need/have a Bootstrap module, you can
 still use L<Find::Lib> to automatically identify the relative locations of
@@ -185,6 +185,11 @@ sub import {
 
     for ( reverse @{ $param{libs} || [] } ) {
         my @lib = splitdir $_;
+        if (@lib && ! $lib[0]) {
+            # '/abs/olute/' path
+            lib->import($_);
+            next;
+        }
         my $dir = catdir( shell_resolve( [ @base ], \@lib ) );
         unless (-d $dir) {
             ## Try the old way (<0.03)
