@@ -1,11 +1,11 @@
 use strict;
-use Test::More tests => 1;
+use Test::More tests => 2;
 
 BEGIN { chdir '/tmp' };
 
 use Find::Lib;
 
-eval { 
+eval {
     Find::Lib->import('../mylib', 'MyLib', a => 1, b => 42);
 };
-ok $@, "we died, because chdir occured before Find::Lib... we're lost";
+ok !$@, "we didn't die because chdir doesn't change PWD, so we are safe";
