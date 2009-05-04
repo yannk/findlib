@@ -161,7 +161,7 @@ sub import {
     return unless @_;
     my %param;
 
-    Carp::croak("The script cannot be found") unless -e $Base;
+    Carp::croak("The script/base dir cannot be found") unless -e $Base;
 
     if ( ( $_[0] eq 'libs' or $_[0] eq 'pkgs' )
         and ref $_[1] && ref $_[1] ne 'SCALAR' ) {
