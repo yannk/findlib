@@ -137,7 +137,7 @@ sub guess_shell_path {
     my @zero = splitdir $0;
     pop @zero; # get rid of the script
     @base = shell_resolve(\@base, \@zero);
-    return catpath( $volume, @base);
+    return catpath( $volume, catdir @base );
 }
 
 ## naive method, but really DWIM from a developer perspective
