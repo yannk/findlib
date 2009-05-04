@@ -1,6 +1,6 @@
 Revision history for Find-Lib
 
-0.03
+0.03    Mon May  5 14:05:00 PDT 2009
         - Uses $ENV{PWD} to allow more DWIM, compared to the previous method
           that used resolved paths all over the place.
           Teamed up with Jonathan Steinert (hachi) for this idea.
