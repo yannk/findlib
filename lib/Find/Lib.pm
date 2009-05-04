@@ -139,7 +139,7 @@ sub guess_shell_path {
     ## a clean base is also important for the pop business below
     #@base = grep { $_ && $_ ne '.' } shell_resolve(\@base, \@zero);
     @base = shell_resolve(\@base, \@zero);
-    return catpath( $volume, catdir @base );
+    return catpath( $volume, (catdir @base), '' );
 }
 
 ## naive method, but really DWIM from a developer perspective
