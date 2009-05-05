@@ -1,5 +1,8 @@
 Revision history for Find-Lib
 
+0.04    Mon May  5 21:05:00 PDT 2009
+        - Fixed the test suite for a warning that generates tons of FAIL report
+
 0.03    Mon May  5 14:05:00 PDT 2009
         - Uses $ENV{PWD} to allow more DWIM, compared to the previous method
           that used resolved paths all over the place.
@@ -9,6 +12,7 @@ Revision history for Find-Lib
         - POD fixes
         - Changed tests suite to make it compatible with perl 5.005
           (hopefully)
+
 0.01    Fri Dec  7 19:30:31 PDT 2007
         First version, released on an unsuspecting world.
 
