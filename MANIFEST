@@ -28,3 +28,4 @@ t/08-dupe-slashes.t
 t/moretests/03-pwd-begin.t
 t/moretests/04-symlinks.t
 t/moretests/symlink_test.pl
+t/mylib/MyLibNoTest.pm

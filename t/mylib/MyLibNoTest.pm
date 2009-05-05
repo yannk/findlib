@@ -1,4 +1,4 @@
-package MyLib;
+package MyLibNoTest;
 
 use vars '%imported';
 
