@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 1;
+use Test::More;
 
 BEGIN {
     if ($^O eq 'MSWin32' or $^O eq 'os2') {
@@ -7,6 +7,7 @@ BEGIN {
     }
     $ENV{PWD} = '/tmp'; chdir '/tmp';
 };
+plan tests => 1;
 
 use Find::Lib;
 

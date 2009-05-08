@@ -17,7 +17,7 @@ Version 0.02
 
 =cut
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 =head1 SYNOPSIS
 
