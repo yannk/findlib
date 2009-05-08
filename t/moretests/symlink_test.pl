@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!perl
 ## this is not a test in itself, don't execute
 ## this is a script that is executed by a test
 
