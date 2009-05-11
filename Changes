@@ -1,5 +1,9 @@
 Revision history for Find-Lib
 
+0.06    Thu May  8 22:30:00 PDT 2009
+        - Still working on the test suite (I wish I could use cpantesters
+        without making a release)
+
 0.05    Thu May  7 19:52:00 PDT 2009
         - Minor fixes attempt for the test suite (CPANTESTERS)
 
