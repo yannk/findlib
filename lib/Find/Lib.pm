@@ -248,6 +248,7 @@ or C<pkgs>. An example of usage is given in the SYNOPSIS section.
 =head1 SEE ALSO
 
 L<FindBin>, L<FindBin::libs>, L<lib>, L<rlib>, L<local::lib>
+L<http://blog.cyberion.net/2009/10/ive-done-something-bad-i-broke-backward-compatibility.html>
 
 =head1 AUTHOR
 
