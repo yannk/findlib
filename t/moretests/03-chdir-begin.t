@@ -7,7 +7,7 @@ BEGIN { chdir '/tmp' };
 
 eval { 
     Find::Lib->import('../mylib');
-    use MyLib a => 1, b => 42;
+    eval "use MyLib a => 1, b => 42;"; die $@ if $@;
 };
 ok ! $@, "we didn't die, because initial Find::Lib compilation saved cwd";
 

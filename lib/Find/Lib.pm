@@ -164,25 +164,20 @@ sub guess_system_path {
 sub import {
     my $class = shift;
     return unless @_;
-    my %param;
 
     Carp::croak("The script/base dir cannot be found") unless -e $Base;
 
-    if ( ( $_[0] eq 'libs' or $_[0] eq 'pkgs' )
-        and ref $_[1] && ref $_[1] ne 'SCALAR' ) {
+    my @libs;
 
-        %param = @_;
-    }
-    else {
-        ## enters simple bootstrap mode:
-        ## 'libpath' => 'bootstrap package' => @arguments
-        $param{libs} = [ $_[0] ];
-        if ( $_[1] ) {
-            $param{pkgs} = { $_[1] => [ splice @_, 2 ] };
+    if ($_[0] eq 'libs') {
+        if ($_[1] && ref $_[1] && ref $_[1] eq 'ARRAY') {
+            ## backward compat mode;
+            @libs = @{ $_[1] };
         }
     }
+    @libs = @_ unless @libs;
 
-    for ( reverse @{ $param{libs} || [] } ) {
+    for ( reverse @libs ) {
         my @lib = splitdir $_;
         if (@lib && ! $lib[0]) {
             # '/abs/olute/' path
@@ -196,14 +191,6 @@ sub import {
         }
         next unless -d $dir;
         lib->import( $dir );
-    }
-
-    while (my ($pkg, $args) = each %{ $param{pkgs} || {} }) {
-        eval "require $pkg";
-        if ($@) {
-            die $@;
-        }
-        $pkg->import( @{ $args || [] } );
     }
 }
 
