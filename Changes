@@ -1,5 +1,12 @@
 Revision history for Find-Lib
 
+1.00    Thu Oct 22 14:00:00 PDT 2009
+        - Adds the shorter Find::Lib 'lib1', 'lib2', 'lib3';
+        - Add convenience  base(), catfile(), catdir() methods
+        *** INCOMPATIBLE CHANGES ***
+        - 'pkg' option is gone
+        - the list arguments won't do any 'use' anymore
+
 0.06    Thu May  8 22:30:00 PDT 2009
         - Still working on the test suite (I wish I could use cpantesters
         without making a release)
