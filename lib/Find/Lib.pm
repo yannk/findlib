@@ -13,11 +13,11 @@ Find::Lib - Helper to smartly find libs to use in the filesystem tree
 
 =head1 VERSION
 
-Version 0.02
+Version 1.0
 
 =cut
 
-$VERSION = '0.06';
+$VERSION = '1.0';
 
 =head1 SYNOPSIS
 
@@ -27,16 +27,20 @@ $VERSION = '0.06';
     ## simple usage
     use Find::Lib '../mylib';
 
-    ## with a Bootstap module
-    use Find::Lib '../mylib' => 'My::Bootstrap';
+    ## more libraries
+    use Find::Lib '../mylib', 'local-lib';
 
-    ## pass import parameters to your Bootstrap module
-    use Find::Lib '../mylib' => 'My::Bootstrap', test => 1, dbi => 'sqlite';
-
-    ## If you like verbose, or if you don't have a Bootstrap module
+    ## More verbose and backward compatible with Find::Lib < 1.0
     use Find::Lib libs => [ 'lib', '../lib', 'devlib' ];
     use My::Test tests => 10;
     use My::Module;
+
+    ## resolve some path with minimum typing
+    $path = Find::Lib->catfile("..", "data", "test.yaml");
+
+    $base = Find::Lib->base;
+    # or
+    $base = Find::Lib::Base;
 
 =head1 DESCRIPTION
 
@@ -44,24 +48,33 @@ The purpose of this module is to replace
 
     use FindBin;
     use lib "$FindBin::Bin/../bootstrap/lib";
-    use My::Bootstrap %param;
 
 with something shorter. This is specially useful if your project has a lot
 of scripts (For instance tests scripts).
 
-    use Find::Lib '../bootstrap/lib' => 'My::Bootstrap', %param;
+    use Find::Lib '../bootstrap/lib';
 
-does exactly that without using L<FindBin> module, and has the important
-propriety to do what you mean regarding symlinks and '..'.
+The important differences between L<FindBin> and L<Find::Lib> are:
 
-Note that the role of a Bootstrap module is actually to install more
-library paths in C<@INC> and to use more modules necessary to your application.
-It keeps your scripts nice and clean.
+=over 4
 
-On the other hand, if you don't want/need/have a Bootstrap module, you can
-still use L<Find::Lib> to automatically identify the relative locations of
-your libraries and add them to your C<@INC>; just use the expanded version
-as seen in the SYNOPSIS.
+=item * symlinks and '..'
+
+If you have symlinks in your path it respects them, so basically you can forget
+you have symlinks, because Find::Lib will do the natural thing (NOT ignore
+them), and resolve '..' correctly. L<FindBin> breaks if you do:
+
+    use lib "$Bin/../lib";
+
+and you currently are in a symlinked directory, because $Bin resolved to the
+filesystem path (without the symlink) and not the shell path.
+
+=item * convenience
+
+it's faster too type, and more intuitive (Exporting C<$Bin> always
+felt weird to me).
+
+=back
 
 =head1 DISCUSSION
 
@@ -95,26 +108,12 @@ the system process-list (C<ps> on unix).
 
 =head2 import
 
-All the work is done in import. So you need to 'use Find::Lib' and pass
-arguments to it.
+All the work is done in import. So you need to C<'use Find::Lib'> and pass
+a list of paths to add to @INC. See L<BACKWARD COMPATIBILITY> section for
+more retails on this topic.
 
-Recognized arguments are:
-
-=over 4
-
-=item C<libs>, a reference to a list of path to add to C<@INC>. The paths given
-are (should) be relative to the location of the current script. The paths won't
-be added unless the path actually exists on disk
-
-=item C<pkgs>, a reference to a hash containing package name as keys and
-arrayref of arguments (to import) as values. This is not really useful in
-itself, you'd better specify 'libs' in the import arguments and then use
-on seperate lines after it.
-
-=back
-
-The short forms implies that the first argument passed to import is not C<libs>
-or C<pkgs>. An example of usage is given in the SYNOPSIS section.
+The paths given are (should) be relative to the location of the current script.
+The paths won't be added unless the path actually exists on disk
 
 =cut
 
@@ -207,6 +206,34 @@ sub import {
         $pkg->import( @{ $args || [] } );
     }
 }
+
+=head2 catfile
+
+A shorcut to L<File::Spec::catfile> using B<Find::Lib>'s base.
+
+=head2 catdir
+
+A shorcut to L<File::Spec::catdir> using B<Find::Lib>'s base.
+
+=head1 BACKWARD COMPATIBILITY
+
+in versions <1.0 of Find::Lib, the import arguments allowed you to specify
+a Bootstrap package. This option is now B<removed> breaking backward
+compatibility. I'm sorry about that, but that was a dumb idea of mine to
+save more typing. But it saves, like, 3 characters at the expense of
+readability. So, I'm sure I didn't break anybody, because probabaly no one
+was relying on a stupid behaviour.
+
+However, the multiple libs argument passing is kept intact: you can still
+use:
+
+    use Find::Lib libs => [ 'a', 'b', 'c' ];
+
+
+where C<libs> is a reference to a list of path to add to C<@INC>.
+
+The short forms implies that the first argument passed to import is not C<libs>
+or C<pkgs>. An example of usage is given in the SYNOPSIS section.
 
 
 =head1 SEE ALSO
