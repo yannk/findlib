@@ -6,12 +6,9 @@ MANIFEST.SKIP
 META.yml
 README
 t/00-compile.t
-t/01-addinc.t
 t/01-basic.t
 t/02-use.t
 t/03-missinginc.t
-t/04-import.t
-t/05-complex.t
 t/06-empty.t
 t/07-libs.t
 t/08-dupe-slashes.t
