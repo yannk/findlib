@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use lib;
 
-use File::Spec::Functions qw( catpath splitpath rel2abs catdir splitdir );
+use File::Spec::Functions qw( catpath splitpath rel2abs splitdir );
 use vars qw/$Base $VERSION @base/;
 use vars qw/$Script/; # compat
 
@@ -138,7 +138,7 @@ sub guess_shell_path {
     ## a clean base is also important for the pop business below
     #@base = grep { $_ && $_ ne '.' } shell_resolve(\@base, \@zero);
     @base = shell_resolve(\@base, \@zero);
-    return catpath( $volume, (catdir @base), '' );
+    return catpath( $volume, (File::Spec->catdir( @base )), '' );
 }
 
 ## naive method, but really DWIM from a developer perspective
@@ -184,23 +184,46 @@ sub import {
             lib->import($_);
             next;
         }
-        my $dir = catdir( shell_resolve( [ @base ], \@lib ) );
+        my $dir = File::Spec->catdir( shell_resolve( [ @base ], \@lib ) );
         unless (-d $dir) {
             ## Try the old way (<0.03)
-            $dir = catdir($Base, $_);
+            $dir = File::Spec->catdir($Base, $_);
         }
         next unless -d $dir;
         lib->import( $dir );
     }
 }
 
+=head2 base
+
+Returns the detected base (the directory where the script lives in). It's a
+string, and is the same as C<$Find::Lib::Base>.
+
+=cut
+
+sub base { return $Base }
+
 =head2 catfile
 
 A shorcut to L<File::Spec::catfile> using B<Find::Lib>'s base.
 
+=cut
+
+sub catfile {
+    my $class = shift;
+    return File::Spec->catfile($Base, @_);
+}
+
 =head2 catdir
 
 A shorcut to L<File::Spec::catdir> using B<Find::Lib>'s base.
+
+=cut
+
+sub catdir {
+    my $class = shift;
+    return File::Spec->catdir($Base, @_);
+}
 
 =head1 BACKWARD COMPATIBILITY
 
