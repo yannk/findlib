@@ -32,10 +32,9 @@ $VERSION = '1.0';
 
     ## More verbose and backward compatible with Find::Lib < 1.0
     use Find::Lib libs => [ 'lib', '../lib', 'devlib' ];
-    use My::Test tests => 10;
-    use My::Module;
 
     ## resolve some path with minimum typing
+    $dir  = Find::Lib->catdir("..", "data");
     $path = Find::Lib->catfile("..", "data", "test.yaml");
 
     $base = Find::Lib->base;
