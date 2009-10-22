@@ -1,7 +1,7 @@
 Revision history for Find-Lib
 
-1.00    Thu Oct 22 14:00:00 PDT 2009
-        - Adds the shorter Find::Lib 'lib1', 'lib2', 'lib3';
+1.0     Thu Oct 22 14:00:00 PDT 2009
+        - Adds the shorter form "Find::Lib 'lib1', 'lib2', 'lib3';"
         - Add convenience  base(), catfile(), catdir() methods
         *** INCOMPATIBLE CHANGES ***
         - 'pkg' option is gone
