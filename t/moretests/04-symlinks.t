@@ -1,4 +1,5 @@
 use strict;
+use warnings;
 use Test::More;
 use File::Copy;
 use File::Spec;
@@ -46,9 +47,9 @@ copy $srcfile, $dstfile;
     ## damn chdir doesn't update PWD unless comming from non-core Cwd
     local $ENV{PWD} = File::Spec->catdir( $ENV{PWD}, $link );
     ## execute from there, if all is ok, succeeds
-    my $ret = system 'perl', $script;
+    my $ret = system $^X, $script;
     ok !$ret, "our script worked, meaning that compilation with symlink worked";
 
-    $ret = system 'perl', ".///$script";
+    $ret = system $^X, ".///$script";
     ok !$ret, "crufty path doesn't make it blow up";
 }
