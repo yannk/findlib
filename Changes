@@ -1,6 +1,10 @@
 Revision history for Find-Lib
 
-0.99_02 Thu Oct 23 18:00:00 PDT 2009
+1.0     Tue Oct 27 13:40:00 PDT 2009
+        *** Incompatible changes see details in 0.99 releases below. ***
+        - Better diagnostics for some obscur test issues on obscur OSes
+
+0.99_02 Fri Oct 23 18:00:00 PDT 2009
         - test change to try to make CPANTESTERS happy
 
 0.99_01 Thu Oct 22 14:00:00 PDT 2009
