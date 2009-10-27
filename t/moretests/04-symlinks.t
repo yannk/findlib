@@ -48,7 +48,8 @@ copy $srcfile, $dstfile;
     local $ENV{PWD} = File::Spec->catdir( $ENV{PWD}, $link );
     ## execute from there, if all is ok, succeeds
     my $ret = system $^X, $script;
-    ok !$ret, "our script worked, meaning that compilation with symlink worked";
+    ok !$ret, "script succeeded, meaning that compilation with symlink worked"
+        or diag "PWD=$ENV{PWD}, script=$script";
 
     $ret = system $^X, ".///$script";
     ok !$ret, "crufty path doesn't make it blow up";
