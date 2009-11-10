@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use lib;
 
-use File::Spec::Functions qw( catpath splitpath rel2abs splitdir );
+use File::Spec();
 use vars qw/$Base $VERSION @base/;
 use vars qw/$Script/; # compat
 
@@ -128,16 +128,16 @@ sub guess_base {
 }
 
 sub guess_shell_path {
-    my ($volume, $path, $file) = splitpath( $ENV{PWD} );
-    my @path = splitdir $path;
+    my ($volume, $path, $file) = File::Spec->splitpath( $ENV{PWD} );
+    my @path = File::Spec->splitdir($path);
     pop @path unless $path[-1];
     @base = (@path, $file);
-    my @zero = splitdir $0;
+    my @zero = File::Spec->splitdir($0);
     pop @zero; # get rid of the script
     ## a clean base is also important for the pop business below
     #@base = grep { $_ && $_ ne '.' } shell_resolve(\@base, \@zero);
     @base = shell_resolve(\@base, \@zero);
-    return catpath( $volume, (File::Spec->catdir( @base )), '' );
+    return File::Spec->catpath( $volume, (File::Spec->catdir( @base )), '' );
 }
 
 ## naive method, but really DWIM from a developer perspective
@@ -157,7 +157,8 @@ sub shell_resolve {
 }
 
 sub guess_system_path {
-    return catpath( (splitpath( rel2abs $0 ))[ 0, 1 ], '' );
+    my @split = (File::Spec->splitpath( File::Spec->rel2abs($0) ))[ 0, 1 ];
+    return File::Spec->catpath( @split, '' );
 }
 
 sub import {
@@ -177,7 +178,7 @@ sub import {
     @libs = @_ unless @libs;
 
     for ( reverse @libs ) {
-        my @lib = splitdir $_;
+        my @lib = File::Spec->splitdir($_);
         if (@lib && ! $lib[0]) {
             # '/abs/olute/' path
             lib->import($_);

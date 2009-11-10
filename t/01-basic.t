@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 8;
+use Test::More tests => 9;
 
 require 't/testutils.pl';
 
@@ -16,3 +16,4 @@ is $base, $Find::Lib::Base, "It's accessible from outside";
 is (Find::Lib->catfile('something'), File::Spec->catfile($base, 'something'));
 is (Find::Lib->catdir('dir'), File::Spec->catdir($base, 'dir'));
 is (Find::Lib->catdir('..', 'dir'), File::Spec->catdir($base, '..', 'dir'));
+unlike (Find::Lib->catdir("x"), qr/Find/, 'Bug with dumb Exporter use');
