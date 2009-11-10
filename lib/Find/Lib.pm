@@ -13,11 +13,11 @@ Find::Lib - Helper to smartly find libs to use in the filesystem tree
 
 =head1 VERSION
 
-Version 1.0
+Version 1.01
 
 =cut
 
-$VERSION = '1.0';
+$VERSION = '1.01';
 
 =head1 SYNOPSIS
 

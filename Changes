@@ -1,5 +1,9 @@
 Revision history for Find-Lib
 
+1.01    Tue Nov 10 12:30:00 PDT 2009
+        - Fix a problem with File::Spec::Functions use of Exporter
+          making Find::Lib->cat(dir|file) behaving incorrectly.
+
 1.0     Tue Oct 27 13:40:00 PDT 2009
         *** Incompatible changes see details in 0.99 releases below. ***
         - Better diagnostics for some obscur test issues on obscur OSes
