@@ -1,5 +1,9 @@
 Revision history for Find-Lib
 
+1.02    Mon Jun 20 22:00:00 PDT 2011
+        - Fix a portabality issue s/$ENV{PWD}/Cwd::cwd()/ RT#68967
+          Thanks to Tatsuhiko Miyagawa and Jesse Luehrs.
+
 1.01    Tue Nov 10 12:30:00 PDT 2009
         - Fix a problem with File::Spec::Functions use of Exporter
           making Find::Lib->cat(dir|file) behaving incorrectly.
