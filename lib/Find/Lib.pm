@@ -4,6 +4,7 @@ use warnings;
 use lib;
 
 use File::Spec();
+use Cwd;
 use vars qw/$Base $VERSION @base/;
 use vars qw/$Script/; # compat
 
@@ -93,7 +94,7 @@ the initial cwd (current working directory), which are the two pieces of
 information the module relies on to interpret the relative path given by the
 calling program.
 
-If one of cwd, $ENV{PWD} or $0 is changed before Find::Lib has a chance to do
+If one of cwd, or $0 is changed before Find::Lib has a chance to do
 its job, then Find::Lib will most probably die, saying "The script cannot be
 found". I don't know a workaround that. So be sure to load Find::Lib as soon
 as possible in your script to minimize problems (you are in control!).
@@ -128,7 +129,7 @@ sub guess_base {
 }
 
 sub guess_shell_path {
-    my ($volume, $path, $file) = File::Spec->splitpath( $ENV{PWD} );
+    my ($volume, $path, $file) = File::Spec->splitpath( Cwd::cwd() );
     my @path = File::Spec->splitdir($path);
     pop @path unless $path[-1];
     @base = (@path, $file);
