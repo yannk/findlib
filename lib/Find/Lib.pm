@@ -127,8 +127,16 @@ sub guess_base {
     return guess_system_path();
 }
 
+## we want to use PWD if it exists (it's not guaranteed on all platforms)
+## so that we have a sense of the shell current working dir, with unresolved
+## symlinks
+sub guess_pwd {
+    return $ENV{PWD} || Cwd::cwd();
+}
+
 sub guess_shell_path {
-    my ($volume, $path, $file) = File::Spec->splitpath( $ENV{PWD} );
+    my $pwd = guess_pwd();
+    my ($volume, $path, $file) = File::Spec->splitpath($pwd);
     my @path = File::Spec->splitdir($path);
     pop @path unless $path[-1];
     @base = (@path, $file);
