@@ -1,5 +1,8 @@
 Revision history for Find-Lib
 
+1.03_01 Wed Jun 29 11:05:00 PST 2011
+        - Revert 1.02 change, but keep a default to Cwd::cwd()
+
 1.02    Mon Jun 20 22:00:00 PDT 2011
         - Fix a portabality issue s/$ENV{PWD}/Cwd::cwd()/ RT#68967
           Thanks to Tatsuhiko Miyagawa and Jesse Luehrs.
