@@ -4,8 +4,10 @@ use warnings;
 use lib;
 
 use File::Spec();
-use vars qw/$Base $VERSION @base/;
+use vars qw/$Base $VERSION @base $zero/;
 use vars qw/$Script/; # compat
+use File::Basename 'dirname';
+use Cwd();
 
 =head1 NAME
 
@@ -118,6 +120,7 @@ The paths won't be added unless the path actually exists on disk
 
 use Carp();
 
+$zero = $0;
 $Script = $Base = guess_base();
 
 sub guess_base {
@@ -134,13 +137,14 @@ sub guess_pwd {
     return $ENV{PWD} || Cwd::cwd();
 }
 
+## optionally take a path, otherwise use a guess at pwd
 sub guess_shell_path {
-    my $pwd = guess_pwd();
+    my $pwd = shift || guess_pwd();
     my ($volume, $path, $file) = File::Spec->splitpath($pwd);
     my @path = File::Spec->splitdir($path);
     pop @path unless $path[-1];
     @base = (@path, $file);
-    my @zero = File::Spec->splitdir($0);
+    my @zero = File::Spec->splitdir($zero);
     pop @zero; # get rid of the script
     ## a clean base is also important for the pop business below
     #@base = grep { $_ && $_ ne '.' } shell_resolve(\@base, \@zero);
@@ -165,7 +169,7 @@ sub shell_resolve {
 }
 
 sub guess_system_path {
-    my @split = (File::Spec->splitpath( File::Spec->rel2abs($0) ))[ 0, 1 ];
+    my @split = (File::Spec->splitpath( File::Spec->rel2abs($zero) ))[ 0, 1 ];
     return File::Spec->catpath( @split, '' );
 }
 
@@ -183,6 +187,13 @@ sub import {
             @libs = @{ $_[1] };
         }
     }
+    my @new_base = @base;
+    ## make symlinked script work in their canonical location
+    ## if +resolve option is set
+    if ($_[0] eq '-resolve') {
+        shift @_;
+        @new_base = File::Spec->splitdir(dirname(Cwd::realpath($zero)));
+    }
     @libs = @_ unless @libs;
 
     for ( reverse @libs ) {
@@ -192,7 +203,7 @@ sub import {
             lib->import($_);
             next;
         }
-        my $dir = File::Spec->catdir( shell_resolve( [ @base ], \@lib ) );
+        my $dir = File::Spec->catdir( shell_resolve( [ @new_base ], \@lib ) );
         unless (-d $dir) {
             ## Try the old way (<0.03)
             $dir = File::Spec->catdir($Base, $_);
