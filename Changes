@@ -1,6 +1,9 @@
 Revision history for Find-Lib
 
-1.03_01 Wed Jun 29 11:05:00 PST 2011
+1.03    Mon Jul 4 00:20:00 PDT 2011
+        - Making this the final 1.03. All tests pass on cpantesters.
+
+1.03_01 Wed Jun 29 11:05:00 PDT 2011
         - Revert 1.02 change, but keep a default to Cwd::cwd()
 
 1.02    Mon Jun 20 22:00:00 PDT 2011
