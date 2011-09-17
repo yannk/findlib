@@ -117,6 +117,7 @@ The paths won't be added unless the path actually exists on disk
 =cut
 
 use Carp();
+use Cwd();
 
 $Script = $Base = guess_base();
 
