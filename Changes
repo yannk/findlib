@@ -1,4 +1,6 @@
 Revision history for Find-Lib
+1.04    Sat Sep 17 15:33:00 PDT 2011
+        - Fix a minor bug where Cwd module is not required. RT#70768
 
 1.03    Mon Jul 4 00:20:00 PDT 2011
         - Making this the final 1.03. All tests pass on cpantesters.
